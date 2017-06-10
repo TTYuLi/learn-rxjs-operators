@@ -1,15 +1,14 @@
 # combineLatest
 
-#### signature: `combineLatest(observables: ...Observable, project: function): Observable`
+#### 签名: `combineLatest(observables: ...Observable, project: function): Observable`
 
-## When any observable emits a value, emit the latest value from each.
+## 当任意 observable 发出值时，发出每个 observable 的最新值。
 
 ---
 
-:bulb: This operator can be used as either a static or instance method!
+:bulb:  此操作符可以既有静态方法，又有实例方法！
 
-:bulb: [combineAll](combineall.md) can be used to apply combineLatest to emitted
-observables when a source completes!
+:bulb:  当源 observable 完成时，可以使用 [combineAll](combineall.md) 来应用 combineLatest 以发出 observables ！
 
 ---
 
@@ -33,32 +32,35 @@ Lastly, if you are working with observables that only emit one value, or you
 only require the last value of each before completion, [`forkJoin`](forkjoin.md)
 is likely a better option.
 
-### Examples
+### 示例
 
-(
-[example tests](https://github.com/btroncone/learn-rxjs/blob/master/operators/specs/combination/combinelatest-spec.ts)
-)
+( [示例测试](https://github.com/btroncone/learn-rxjs/blob/master/operators/specs/combination/combinelatest-spec.ts) )
 
-##### Example 1: Combining observables emitting at 3 intervals
+##### 示例 1: 组合3个定时发送的 observables
 
-( [jsBin](http://jsbin.com/tinumesuda/1/edit?js,console) |
-[jsFiddle](https://jsfiddle.net/btroncone/mygy9j86/69/) )
+( [jsBin](http://jsbin.com/zupiqozaro/1/edit?js,console) | [jsFiddle](https://jsfiddle.net/btroncone/mygy9j86/) )
 
 ```js
-//timerOne emits first value at 1s, then once every 4s
+// timerOne 在1秒时发出第一个值，然后每4秒发送一次
 const timerOne = Rx.Observable.timer(1000, 4000);
-//timerTwo emits first value at 2s, then once every 4s
-const timerTwo = Rx.Observable.timer(2000, 4000);
-//timerThree emits first value at 3s, then once every 4s
-const timerThree = Rx.Observable.timer(3000, 4000);
+// timerTwo 在2秒时发出第一个值，然后每4秒发送一次
+const timerTwo = Rx.Observable.timer(2000, 4000)
+// timerThree 在3秒时发出第一个值，然后每4秒发送一次
+const timerThree = Rx.Observable.timer(3000, 4000)
 
-//when one timer emits, emit the latest values from each timer as an array
-const combined = Rx.Observable.combineLatest(timerOne, timerTwo, timerThree);
+// 当一个 timer 发出值时，将每个 timer 的最新值作为一个数组发出
+const combined = Rx.Observable
+.combineLatest(
+    timerOne,
+    timerTwo,
+    timerThree
+);
 
-const subscribe = combined.subscribe(
-  ([timerValOne, timerValTwo, timerValThree]) => {
-    /*
-  	Example:
+const subscribe = combined.subscribe(latestValues => {
+  // 从 timerValOne、timerValTwo 和 timerValThree 中获取最新发出的值
+	const [timerValOne, timerValTwo, timerValThree] = latestValues;
+  /*
+  	示例:
     timerOne first tick: 'Timer One Latest: 1, Timer Two Latest:0, Timer Three Latest: 0
     timerTwo first tick: 'Timer One Latest: 1, Timer Two Latest:1, Timer Three Latest: 0
     timerThree first tick: 'Timer One Latest: 1, Timer Two Latest:1, Timer Three Latest: 1
@@ -72,20 +74,20 @@ const subscribe = combined.subscribe(
 );
 ```
 
-##### Example 2: combineLatest with projection function
+##### 示例 2: 使用 projection 函数的 combineLatest
 
 ( [jsBin](http://jsbin.com/codotapula/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/uehasmb6/) )
 
 ```js
-//timerOne emits first value at 1s, then once every 4s
+// timerOne 在1秒时发出第一个值，然后每4秒发送一次
 const timerOne = Rx.Observable.timer(1000, 4000);
-//timerTwo emits first value at 2s, then once every 4s
+// timerTwo 在2秒时发出第一个值，然后每4秒发送一次
 const timerTwo = Rx.Observable.timer(2000, 4000);
-//timerThree emits first value at 3s, then once every 4s
+// timerThree 在3秒时发出第一个值，然后每4秒发送一次
 const timerThree = Rx.Observable.timer(3000, 4000);
 
-//combineLatest also takes an optional projection function
+// combineLatest 还接收一个可选的 projection 函数
 const combinedProject = Rx.Observable.combineLatest(
   timerOne,
   timerTwo,
@@ -96,29 +98,29 @@ const combinedProject = Rx.Observable.combineLatest(
               Timer Three (Proj) Latest: ${three}`;
   }
 );
-//log values
+// 输出值
 const subscribe = combinedProject.subscribe(latestValuesProject =>
   console.log(latestValuesProject)
 );
 ```
 
-##### Example 3: Combining events from 2 buttons
+##### Example 3: 组合2个按钮的事件
 
 ( [jsBin](http://jsbin.com/buridepaxi/edit?html,js,output) |
 [jsFiddle](https://jsfiddle.net/btroncone/9rsf6t9v/14/) )
 
 ```js
-// helper function to set HTML
+// 用来设置 HTML 的辅助函数
 const setHtml = id => val => (document.getElementById(id).innerHTML = val);
 
 const addOneClick$ = id =>
   Rx.Observable.fromEvent(document.getElementById(id), 'click')
-    // map every click to 1
+    // 将每次点击映射成1
     .mapTo(1)
     .startWith(0)
-    // keep a running total
+    // 追踪运行中的总数
     .scan((acc, curr) => acc + curr)
-    // set HTML for appropriate element
+    // 为适当的元素设置 HTML
     .do(setHtml(`${id}Total`));
 
 const combineTotal$ = Rx.Observable.combineLatest(
@@ -141,16 +143,11 @@ const combineTotal$ = Rx.Observable.combineLatest(
 <div>Total: <span id="total"></span> </div>
 ```
 
-### Additional Resources
+### 其他资源
 
-* [combineLatest](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-combineLatest)
-  :newspaper: - Official docs
-* [Combining streams with combineLatest](https://egghead.io/lessons/rxjs-combining-streams-with-combinelatest?course=step-by-step-async-javascript-with-rxjs)
-  :video_camera: :dollar: - John Linquist
-* [Combination operator: combineLatest](https://egghead.io/lessons/rxjs-combination-operator-combinelatest?course=rxjs-beyond-the-basics-operators-in-depth)
-  :video_camera: :dollar: - André Staltz
+* [combineLatest](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-combineLatest) :newspaper: - 官方文档
+* [使用 combineLatest 组合流](https://egghead.io/lessons/rxjs-combining-streams-with-combinelatest?course=step-by-step-async-javascript-with-rxjs) :video_camera: :dollar: - John Linquist
+* [组合操作符: combineLatest](https://egghead.io/lessons/rxjs-combination-operator-combinelatest?course=rxjs-beyond-the-basics-operators-in-depth) :video_camera: :dollar: - André Staltz
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/combineLatest.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/combineLatest.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/combineLatest.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/combineLatest.ts)

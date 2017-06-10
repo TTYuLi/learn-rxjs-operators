@@ -1,31 +1,31 @@
 # windowToggle
 
-#### signature: `windowToggle(openings: Observable, closingSelector: function(value): Observable): Observable`
+#### 签名: `windowToggle(openings: Observable, closingSelector: function(value): Observable): Observable`
 
-## Collect and emit observable of values from source between opening and closing emission.
+## 以 openings 发出为起始，以 closingSelector 发出为结束，收集并发出源 observable 中的值的 observable 。
 
-### Examples
+### 示例
 
-##### Example 1: Toggle window at increasing interval
+##### 示例 1: 根据渐增的定时器开关窗口
 
 ( [jsBin](http://jsbin.com/xasofupuka/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/3xmmuzy4/) )
 
 ```js
-//emit immediately then every 1s
+// 立即发出值，然后每秒发出值
 const source = Rx.Observable.timer(0, 1000);
-//toggle window on every 5
+// 每5秒开关窗口
 const toggle = Rx.Observable.interval(5000);
 const example = source
-  //turn window on every 5s
+  // 每5秒开启窗口
   .windowToggle(toggle, val => Rx.Observable.interval(val * 1000))
   .do(() => console.log('NEW WINDOW!'));
 
 const subscribeTwo = example
-  //window emits nested observable
+  // 窗口发出嵌套的 observable
   .mergeAll()
   /*
-  output:
+  输出:
   "NEW WINDOW!"
   5
   "NEW WINDOW!"
@@ -42,14 +42,10 @@ const subscribeTwo = example
   .subscribe(val => console.log(val));
 ```
 
-### Additional Resources
+### 其他资源
 
-* [windowToggle](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-windowToggle)
-  :newspaper: - Official docs
-* [Split an RxJS observable conditionally with windowToggle](https://egghead.io/lessons/rxjs-split-an-rxjs-observable-conditionally-with-windowtoggle?course=use-higher-order-observables-in-rxjs-effectively)
-  :video_camera: :dollar: - André Staltz
+* [windowToggle](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-windowToggle) :newspaper: - 官方文档
+* [使用 windowToggle 有条件地分割 RxJS observable](https://egghead.io/lessons/rxjs-split-an-rxjs-observable-conditionally-with-windowtoggle?course=use-higher-order-observables-in-rxjs-effectively) :video_camera: :dollar: - André Staltz
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/windowToggle.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/windowToggle.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/windowToggle.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/windowToggle.ts)

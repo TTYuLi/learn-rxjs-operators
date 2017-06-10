@@ -1,36 +1,36 @@
 # retryWhen
 
-#### signature: `retryWhen(receives: (errors: Observable) => Observable, the: scheduler): Observable`
+#### 签名: `retryWhen(receives: (errors: Observable) => Observable, the: scheduler): Observable`
 
-## Retry an observable sequence on error based on custom criteria.
+## 当发生错误时，基于自定义的标准来重试 observable 序列。
 
-### Examples
+### 示例
 
-##### Example 1: Trigger retry after specified duration
+##### 示例 1: 在指定的时间间隔后触发重试
 
 ( [jsBin](http://jsbin.com/miduqexalo/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/49mkhsyr/) )
 
 ```js
-//emit value every 1s
+// 每1秒发出值
 const source = Rx.Observable.interval(1000);
 const example = source
   .map(val => {
     if (val > 5) {
-      //error will be picked up by retryWhen
+      // 错误将由 retryWhen 接收
       throw val;
     }
     return val;
   })
   .retryWhen(errors =>
     errors
-      //log error message
+      // 输出错误信息
       .do(val => console.log(`Value ${val} was too high!`))
-      //restart in 5 seconds
+      // 5秒后重启
       .delayWhen(val => Rx.Observable.timer(val * 1000))
   );
 /*
-  output: 
+  输出: 
   0
   1
   2
@@ -38,7 +38,7 @@ const example = source
   4
   5
   "Value 6 was too high!"
-  --Wait 5 seconds then repeat
+  --等待5秒后然后重复此过程
 */
 const subscribe = example.subscribe(val => console.log(val));
 ```
@@ -73,14 +73,10 @@ const example = source
 const subscribe = example.subscribe(val => console.log(val));
 ```
 
-### Additional Resources
+### 其他资源
 
-* [retryWhen](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-retryWhen)
-  :newspaper: - Official docs
-* [Error handling operator: retry and retryWhen](https://egghead.io/lessons/rxjs-error-handling-operator-retry-and-retrywhen?course=rxjs-beyond-the-basics-operators-in-depth)
-  :video_camera: :dollar: - André Staltz
+* [retryWhen](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-retryWhen) :newspaper: - 官方文档
+* [错误处理操作符: retry 和 retryWhen](https://egghead.io/lessons/rxjs-error-handling-operator-retry-and-retrywhen?course=rxjs-beyond-the-basics-operators-in-depth) :video_camera: :dollar: - André Staltz
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/retryWhen.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/retryWhen.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/retryWhen.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/retryWhen.ts)

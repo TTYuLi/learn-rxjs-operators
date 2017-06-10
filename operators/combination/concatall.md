@@ -1,67 +1,63 @@
 # concatAll
 
-#### signature: `concatAll(): Observable`
+#### 签名: `concatAll(): Observable`
 
-## Collect observables and subscribe to next when previous completes.
-
----
-
-:warning: Be wary of
-[backpressure](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/backpressure.md)
-when the source emits at a faster pace than inner observables complete!
-
-:bulb: In many cases you can use [concatMap](../transformation/concatmap.md) as
-a single operator instead!
+## 收集 observables，当前一个完成时订阅下一个。
 
 ---
 
-### Examples
+:warning:  当源 observable 发出的速度要比内部 observables 完成更快时，请小心 [backpressure (背压)](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/backpressure.md) ！
 
-(
-[example tests](https://github.com/btroncone/learn-rxjs/blob/master/operators/specs/combination/concatall-spec.ts)
-)
+:bulb:  在很多情况下，你可以使用只使用单个操作符 [concatMap](../transformation/concatmap.md) 来替代！
+> 译者注：concatMap === map + concatAll
 
-##### Example 1: concatAll with observable
+---
+
+### 示例
+
+( [示例测试](https://github.com/btroncone/learn-rxjs/blob/master/operators/specs/combination/concatall-spec.ts) )
+
+##### 示例 1: 使用 observable 来进行 concatAll
 
 ( [jsBin](http://jsbin.com/nakinenuva/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/8dfuf2y6/) )
 
 ```js
-//emit a value every 2 seconds
+// 每2秒发出值
 const source = Rx.Observable.interval(2000);
 const example = source
-  //for demonstration, add 10 to and return as observable
+  // 为了演示，增加10并作为 observable 返回
   .map(val => Rx.Observable.of(val + 10))
-  //merge values from inner observable
+  // 合并内部 observables 的值
   .concatAll();
-//output: 'Example with Basic Observable 10', 'Example with Basic Observable 11'...
+// 输出: 'Example with Basic Observable 10', 'Example with Basic Observable 11'...
 const subscribe = example.subscribe(val =>
   console.log('Example with Basic Observable:', val)
 );
 ```
 
-##### Example 2: concatAll with promise
+##### 示例 2: 使用 promise 来进行 concatAll
 
 ( [jsBin](http://jsbin.com/bekegeyopu/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/w7kp7qLs/) )
 
 ```js
-//create and resolve basic promise
+// 创建并解析一个基础的 promise
 const samplePromise = val => new Promise(resolve => resolve(val));
-//emit a value every 2 seconds
+// 每2秒发出值
 const source = Rx.Observable.interval(2000);
 
 const example = source
   .map(val => samplePromise(val))
-  //merge values from resolved promise
+  // 合并解析过的 promise 的值
   .concatAll();
-//output: 'Example with Promise 0', 'Example with Promise 1'...
+// 输出: 'Example with Promise 0', 'Example with Promise 1'...
 const subscribe = example.subscribe(val =>
   console.log('Example with Promise:', val)
 );
 ```
 
-##### Example 3: Delay while inner observables complete
+##### 示例 3: 当内部 observables 完成时进行延迟
 
 ( [jsBin](http://jsbin.com/pojolatile/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/8230ucbg/) )
@@ -70,14 +66,14 @@ const subscribe = example.subscribe(val =>
 const obs1 = Rx.Observable.interval(1000).take(5);
 const obs2 = Rx.Observable.interval(500).take(2);
 const obs3 = Rx.Observable.interval(2000).take(1);
-//emit three observables
+// 发出3个 observables
 const source = Rx.Observable.of(obs1, obs2, obs3);
-//subscribe to each inner observable in order when previous completes
+// 按顺序订阅每个内部 obserable，前一个完成了再订阅下一个
 const example = source.concatAll();
 /*
-  output: 0,1,2,3,4,0,1,0
-  How it works...
-  Subscribes to each inner observable and emit values, when complete subscribe to next
+  输出: 0,1,2,3,4,0,1,0
+  怎么运行的...
+  订阅每个内部 observable 并发出值，当一个完成了才订阅下一个
   obs1: 0,1,2,3,4 (complete)
   obs2: 0,1 (complete)
   obs3: 0 (complete)
@@ -86,14 +82,10 @@ const example = source.concatAll();
 const subscribe = example.subscribe(val => console.log(val));
 ```
 
-### Additional Resources
+### 其他资源
 
-* [concatAll](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-concatAll)
-  :newspaper: - Official docs
-* [Flatten a higher order observable with concatAll in RxJS](https://egghead.io/lessons/rxjs-flatten-a-higher-order-observable-with-concatall-in-rxjs?course=use-higher-order-observables-in-rxjs-effectively)
-  :video_camera: :dollar: - André Staltz
+* [concatAll](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-concatAll) :newspaper: - 官方文档
+* [使用 RxJS 的 concatAll 来打平高阶 observable](https://egghead.io/lessons/rxjs-flatten-a-higher-order-observable-with-concatall-in-rxjs?course=use-higher-order-observables-in-rxjs-effectively) :video_camera: :dollar: - André Staltz
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/concatAll.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/concatAll.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/concatAll.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/concatAll.ts)

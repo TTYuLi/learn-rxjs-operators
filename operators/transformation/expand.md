@@ -1,28 +1,28 @@
 # expand
 
-#### signature: `expand(project: function, concurrent: number, scheduler: Scheduler): Observable`
+#### 签名: `expand(project: function, concurrent: number, scheduler: Scheduler): Observable`
 
-## Recursively call provided function.
+## 递归调用提供的函数
 
-### Examples
+### 示例
 
-##### Example 1: Add one for each invocation
+##### 示例 1: 每次调用加1
 
 ( [jsBin](http://jsbin.com/fuxocepazi/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/nu4apbLt/) )
 
 ```js
-//emit 2
+// 发出 2
 const source = Rx.Observable.of(2);
 const example = source
-  //recursively call supplied function
+  // 递归调用提供的函数
   .expand(val => {
-    //2,3,4,5,6
+    // 2,3,4,5,6
     console.log(`Passed value: ${val}`);
-    //3,4,5,6
+    // 3,4,5,6
     return Rx.Observable.of(1 + val);
   })
-  //call 5 times
+  // 调用5次
   .take(5);
 /*
 	"RESULT: 2"
@@ -36,16 +36,13 @@ const example = source
 	"RESULT: 6"
 	"Passed value: 6"
 */
-//output: 2,3,4,5,6
+// 输出: 2,3,4,5,6
 const subscribe = example.subscribe(val => console.log(`RESULT: ${val}`));
 ```
 
-### Additional Resources
+### 其他资源
 
-* [expand](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-expand)
-  :newspaper: - Official docs
+* [expand](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-expand) :newspaper: - 官方文档
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/expand.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/expand.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/expand.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/expand.ts)

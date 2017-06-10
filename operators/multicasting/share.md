@@ -1,32 +1,32 @@
 # share
 
-#### signature: `share(): Observable`
+#### 签名: `share(): Observable`
 
-## Share source among multiple subscribers.
-
----
-
-:bulb: share is like [multicast](multicast.md) with a Subject and refCount!
+## 在多个订阅者间共享源 observable 。
 
 ---
 
-### Examples
+:bulb:  share 就像是使用了 Subject 和 refCount 的 [multicast](multicast.md)！
 
-##### Example 1: Multiple subscribers sharing source
+---
+
+### 示例
+
+##### 示例 1: 多个订阅者共享源 observable 
 
 ( [jsBin](http://jsbin.com/jobiyomari/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/Lmesxxaq/) )
 
 ```js
-//emit value in 1s
+// 1秒后发出值
 const source = Rx.Observable.timer(1000);
-//log side effect, emit result
+// 输出副作用，然后发出结果
 const example = source
   .do(() => console.log('***SIDE EFFECT***'))
   .mapTo('***RESULT***');
 /*
-  ***NOT SHARED, SIDE EFFECT WILL BE EXECUTED TWICE***
-  output: 
+  ***不共享的话，副作用会执行两次***
+  输出: 
   "***SIDE EFFECT***"
   "***RESULT***"
   "***SIDE EFFECT***"
@@ -35,11 +35,11 @@ const example = source
 const subscribe = example.subscribe(val => console.log(val));
 const subscribeTwo = example.subscribe(val => console.log(val));
 
-//share observable among subscribers
+// 在多个订阅者间共享 observable
 const sharedExample = example.share();
 /*
-  ***SHARED, SIDE EFFECT EXECUTED ONCE***
-  output: 
+  ***共享的话，副作用只执行一次***
+  输出: 
   "***SIDE EFFECT***"
   "***RESULT***"
   "***RESULT***"
@@ -48,14 +48,11 @@ const subscribeThree = sharedExample.subscribe(val => console.log(val));
 const subscribeFour = sharedExample.subscribe(val => console.log(val));
 ```
 
-### Additional Resources
 
-* [share](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-share)
-  :newspaper: - Official docs
-* [Sharing streams with share](https://egghead.io/lessons/rxjs-sharing-streams-with-share?course=step-by-step-async-javascript-with-rxjs)
-  :video_camera: :dollar: - John Linquist
+### 其他资源
+
+* [share](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-share) :newspaper: - 官方文档
+* [使用 share 共享流](https://egghead.io/lessons/rxjs-sharing-streams-with-share?course=step-by-step-async-javascript-with-rxjs) :video_camera: :dollar: - John Linquist
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/share.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/share.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/share.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/share.ts)

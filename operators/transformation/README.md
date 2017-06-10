@@ -1,9 +1,9 @@
-# Transformation Operators
+# 转换操作符
 
-Transforming values as they pass through the operator chain is a common task. These operators provide transformation techniques
-for nearly any use-case you will encounter.
+在通过操作符链时进行值的转换是一个常见的任务。这些操作符提供了转换技术几乎可以涵盖你所能遇到的任何场景。
 
-## Contents
+## 内容
+
 * [buffer](buffer.md)
 * [bufferCount](buffercount.md)
 * [bufferTime](buffertime.md) :star:
@@ -28,4 +28,4 @@ for nearly any use-case you will encounter.
 * [windowToggle](windowtoggle.md)
 * [windowWhen](windowwhen.md)
 
-:star: - *commonly used*
+:star: - *常用*

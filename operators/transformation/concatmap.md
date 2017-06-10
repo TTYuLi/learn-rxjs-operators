@@ -1,65 +1,65 @@
 # concatMap
 
-#### signature: `concatMap(project: function, resultSelector: function): Observable`
+#### 签名: `concatMap(project: function, resultSelector: function): Observable`
 
-## Map values to inner observable, subscribe and emit in order.
+## 将值映射成内部 observable，并按顺序订阅和发出。
 
-### Examples
+### 示例
 
-##### Example 1: Map to inner observable
+##### 示例 1: 映射成内部 observable
 
 ( [jsBin](http://jsbin.com/powivemaxu/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/y3yx666r/) )
 
 ```js
-//emit 'Hello' and 'Goodbye'
+// 发出 'Hello' 和 'Goodbye'
 const source = Rx.Observable.of('Hello', 'Goodbye');
-// map value from source into inner observable, when complete emit result and move to next
+// 将 source 的值映射成内部 observable，当一个完成发出结果后再继续下一个
 const example = source.concatMap(val => Rx.Observable.of(`${val} World!`));
-//output: 'Example One: 'Hello World', Example One: 'Goodbye World'
+// 输出: 'Example One: 'Hello World', Example One: 'Goodbye World'
 const subscribe = example.subscribe(val => console.log('Example One:', val));
 ```
 
-##### Example 2: Map to promise
+##### 示例 2: 映射成 promise
 
 ( [jsBin](http://jsbin.com/celixodeba/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/Lym33L97//) )
 
 ```js
-//emit 'Hello' and 'Goodbye'
+// 发出 'Hello' 和 'Goodbye'
 const source = Rx.Observable.of('Hello', 'Goodbye');
-//example with promise
+// 使用 promise 的示例
 const examplePromise = val => new Promise(resolve => resolve(`${val} World!`));
-// map value from source into inner observable, when complete emit result and move to next
+// 将 source 的值映射成内部 observable，当一个完成发出结果后再继续下一个
 const example = source.concatMap(val => examplePromise(val));
-//output: 'Example w/ Promise: 'Hello World', Example w/ Promise: 'Goodbye World'
+// 输出: 'Example w/ Promise: 'Hello World', Example w/ Promise: 'Goodbye World'
 const subscribe = example.subscribe(val =>
   console.log('Example w/ Promise:', val)
 );
 ```
 
-##### Example 3: Supplying a projection function
+##### 示例 3: 应用投射函数
 
 ( [jsBin](http://jsbin.com/vihacewozo/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/5sr5zzgy/) )
 
 ```js
-//emit 'Hello' and 'Goodbye'
+// 发出 'Hello' 和 'Goodbye'
 const source = Rx.Observable.of('Hello', 'Goodbye');
-//example with promise
+// 使用 promise 的示例
 const examplePromise = val => new Promise(resolve => resolve(`${val} World!`));
-//result of first param passed to second param selector function before being  returned
+// 返回结果前，第一个参数的结果将传递给第二个参数选择器函数
 const example = source.concatMap(
   val => examplePromise(val),
   result => `${result} w/ selector!`
 );
-//output: 'Example w/ Selector: 'Hello w/ Selector', Example w/ Selector: 'Goodbye w/ Selector'
+// 输出: 'Example w/ Selector: 'Hello w/ Selector', Example w/ Selector: 'Goodbye w/ Selector'
 const subscribe = example.subscribe(val =>
   console.log('Example w/ Selector:', val)
 );
 ```
 
-##### Example 4: Illustrating difference between concatMap and mergeMap
+##### 示例 4: 说明 concatMap 和 mergeMap 之间的区别
 
 ( [jsBin](http://jsbin.com/kiwuvamafo/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/3xd74d89/) )
@@ -76,14 +76,11 @@ const mergeMapSub = Rx.Observable.of(2000, 1000)
   .subscribe(v => console.log('mergeMap:', v));
 ```
 
-### Additional Resources
 
-* [concatMap](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-concatMap)
-  :newspaper: - Official docs
-* [Use RxJS concatMap to map and concat higher order observables](https://egghead.io/lessons/rxjs-use-rxjs-concatmap-to-map-and-concat-high-order-observables?course=use-higher-order-observables-in-rxjs-effectively)
-  :video_camera: :dollar: - André Staltz
+### 其他资源
+
+* [concatMap](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-concatMap) :newspaper: - 官方文档
+* [使用 RxJS 的 concatMap 操作符来映射并连接高阶 observables](https://egghead.io/lessons/rxjs-use-rxjs-concatmap-to-map-and-concat-high-order-observables?course=use-higher-order-observables-in-rxjs-effectively) :video_camera: :dollar: - André Staltz
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/concatMap.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/concatMap.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/concatMap.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/concatMap.ts)

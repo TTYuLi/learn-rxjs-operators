@@ -1,38 +1,33 @@
 # empty
 
-#### signature: `empty(scheduler: Scheduler): Observable`
+#### 签名: `empty(scheduler: Scheduler): Observable`
 
-## Observable that immediately completes.
+## 立即完成的 observable 。
 
-### Examples
+### 示例
 
-##### Example 1: empty immediately completes
+##### 示例 1: empty 会立即完成
 
 ( [jsBin](http://jsbin.com/rodubucaqa/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/bz71mzuy/) )
 
 ```js
-//Create observable that immediately completes
+// 创建的 observable 会立即完成
 const example = Rx.Observable.empty();
-//output: 'Complete!'
+// 输出: 'Complete!'
 const subscribe = example.subscribe({
   next: () => console.log('Next'),
   complete: () => console.log('Complete!')
 });
 ```
 
-### Follow the Source Code
+### 源码解析
 
-_Coming soon..._
+*即将发布...*
 
 ### Additional Resources
-
-* [empty](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-empty)
-  :newspaper: - Official docs
-* [Creation operators: empty, never, and throw](https://egghead.io/lessons/rxjs-creation-operators-empty-never-throw?course=rxjs-beyond-the-basics-creating-observables-from-scratch)
-  :video_camera: :dollar: - André Staltz
+* [empty](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#static-method-empty) :newspaper: - 官方文档
+* [Creation operators: empty, never, and throw](https://egghead.io/lessons/rxjs-creation-operators-empty-never-throw?course=rxjs-beyond-the-basics-creating-observables-from-scratch) :video_camera: :dollar: - André Staltz
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/observable/EmptyObservable.ts](https://github.com/ReactiveX/rxjs/blob/master/src/observable/EmptyObservable.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/observable/EmptyObservable.ts](https://github.com/ReactiveX/rxjs/blob/master/src/observable/EmptyObservable.ts)

@@ -1,29 +1,26 @@
 # range
 
-#### signature: `range(start: number, count: number, scheduler: Scheduler): Observable`
+#### 签名: `range(start: number, count: number, scheduler: Scheduler): Observable`
 
-## Emit numbers in provided range in sequence.
+## 依次发出给定区间内的数字。
 
-### Examples
+### 示例
 
-##### Example 1: Emit range 1-10
+##### 示例 1: 发出1-10的区间值
 
 ( [jsBin](http://jsbin.com/yalefomage/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/cfvfgwn9/) )
 
 ```js
-//emit 1-10 in sequence
+// 依次发出1-10
 const source = Rx.Observable.range(1, 10);
-//output: 1,2,3,4,5,6,7,8,9,10
+// 输出: 1,2,3,4,5,6,7,8,9,10
 const example = source.subscribe(val => console.log(val));
 ```
 
-### Additional Resources
+### 其他资源
 
-* [range](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-range)
-  :newspaper: - Official docs
+* [range](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#static-method-range) :newspaper: - 官方文档
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/observable/RangeObservable.ts](https://github.com/ReactiveX/rxjs/blob/master/src/observable/RangeObservable.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/observable/RangeObservable.ts](https://github.com/ReactiveX/rxjs/blob/master/src/observable/RangeObservable.ts)

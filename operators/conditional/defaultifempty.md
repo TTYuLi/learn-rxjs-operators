@@ -1,44 +1,42 @@
 # defaultIfEmpty
 
-#### signature: `defaultIfEmpty(defaultValue: any): Observable`
+#### 签名: `defaultIfEmpty(defaultValue: any): Observable`
 
-## Emit given value if nothing is emitted before completion.
+## 如果在完成前没有发出任何通知，那么发出给定的值
 
-### Examples
+### 示例
 
-##### Example 1: Default for empty value
+##### 示例 1: 没有值的 Observable.of 的默认值
 
 ( [jsBin](http://jsbin.com/yawumoqatu/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/8ex96cov/) )
 
 ```js
 const empty = Rx.Observable.of();
-//emit 'Observable.of() Empty!' when empty, else any values from source
+// 当源 observable 为空时，发出 'Observable.of() Empty!'，否则发出源的任意值
 const exampleOne = empty.defaultIfEmpty('Observable.of() Empty!');
-//output: 'Observable.of() Empty!'
+// 输出: 'Observable.of() Empty!'
 const subscribe = exampleOne.subscribe(val => console.log(val));
 ```
 
-##### Example 2: Default for Observable.empty
+##### 示例 2: Observable.empty 的默认值
 
 ( [jsBin](http://jsbin.com/kojafuvesu/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/3edw828p/) )
 
 ```js
-//empty observable
+// 空的 observable 
 const empty = Rx.Observable.empty();
-//emit 'Observable.empty()!' when empty, else any values from source
+// 当源 observable 为空时，发出 'Observable.empty()!'，否则发出源的任意值
 const example = empty.defaultIfEmpty('Observable.empty()!');
-//output: 'Observable.empty()!'
+// 输出: 'Observable.empty()!'
 const subscribe = example.subscribe(val => console.log(val));
 ```
 
-### Additional Resources
 
-* [defaultIfEmpty](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-defaultIfEmpty)
-  :newspaper: - Official docs
+### 其他资源
+
+* [defaultIfEmpty](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-defaultIfEmpty) :newspaper: - 官方文档
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/defaultIfEmpty.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/defaultIfEmpty.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/defaultIfEmpty.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/defaultIfEmpty.ts)

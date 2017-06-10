@@ -1,31 +1,29 @@
 # skipWhile
 
-#### signature: `skipWhile(predicate: Function): Observable`
+#### 签名: `skipWhile(predicate: Function): Observable`
 
-## Skip emitted values from source until provided expression is false.
+## 跳过源 observable 发出的值，直到提供的表达式结果为 false 。
 
-### Examples
+### 示例
 
-##### Example 1: Skip while values below threshold
+##### 示例 1: 当值小于阈值的时候跳过
 
 ( [jsBin](http://jsbin.com/bemikuleya/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/3ymfxb09/) )
 
 ```js
-//emit every 1s
+// 每1秒发出值
 const source = Rx.Observable.interval(1000);
-//skip emitted values from source while value is less than 5
+// 当源 observable 发出的值小于5的时候，则跳过该值
 const example = source.skipWhile(val => val < 5);
-//output: 5...6...7...8........
+// 输出: 5...6...7...8........
 const subscribe = example.subscribe(val => console.log(val));
 ```
 
-### Additional Resources
 
-* [skipWhile](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-skipWhile)
-  :newspaper: - Official docs
+### 其他资源
+
+* [skipWhile](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-skipWhile) :newspaper: - 官方文档
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/skipWhile.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/skipWhile.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/skipWhile.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/skipWhile.ts)

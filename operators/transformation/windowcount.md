@@ -1,29 +1,29 @@
 # windowCount
 
-#### signature: `windowCount(windowSize: number, startWindowEvery: number): Observable`
+#### 签名: `windowCount(windowSize: number, startWindowEvery: number): Observable`
 
-## Observable of values from source, emitted each time provided count is fulfilled.
+## 源 observable 中的值的 observable，每次发出N个值(N由参数决定)。
 
-### Examples
+### 示例
 
-##### Example 1: Start new window every x items emitted
+##### 示例 1: 每发出x个项就开启一个新窗口
 
 ( [jsBin](http://jsbin.com/nezuvacexe/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/xjgbnqp5/) )
 
 ```js
-//emit every 1s
+// 每1秒发出值
 const source = Rx.Observable.interval(1000);
 const example = source
-  //start new window every 4 emitted values
+  // 每发出4个值就开启新窗口
   .windowCount(4)
   .do(() => console.log('NEW WINDOW!'));
 
 const subscribeTwo = example
-  //window emits nested observable
+  // 窗口发出嵌套的 observable
   .mergeAll()
   /*
-  output:
+  输出:
   "NEW WINDOW!"
   0
   1
@@ -38,12 +38,9 @@ const subscribeTwo = example
   .subscribe(val => console.log(val));
 ```
 
-### Additional Resources
+### 其他资源
 
-* [windowCount](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-windowCount)
-  :newspaper: - Official docs
+* [windowCount](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-windowCount) :newspaper: - 官方文档
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/windowCount.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/windowCount.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/windowCount.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/windowCount.ts)

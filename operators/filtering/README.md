@@ -1,9 +1,9 @@
-# Filtering Operators
+# 过滤操作符
 
-In a [push based approach](http://reactivex.io/rxjs/manual/overview.html#pull-versus-push), picking and choosing how and when to accept items is important.
-These operators provide techniques for accepting values from an observable source and dealing with [backpressure](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/backpressure.md).
+在[基于推送的方式](http://reactivex.io/rxjs/manual/overview.html#pull-versus-push)下，选择接受项的方式和时间很重要。这些操作符提供了从 observable 源中接受值和处理[backpressure (背压)](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/backpressure.md)的技术。
 
-## Contents
+## 内容
+
 * [debounce](debounce.md)
 * [debounceTime](debouncetime.md) :star:
 * [distinctUntilChanged](distinctuntilchanged.md) :star:
@@ -22,5 +22,5 @@ These operators provide techniques for accepting values from an observable sourc
 * [throttle](throttle.md)
 * [throttleTime](throttletime.md)
 
-:star: - *commonly used*
+:star: - *常用*
 

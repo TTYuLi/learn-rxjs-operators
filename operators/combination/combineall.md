@@ -1,37 +1,35 @@
 # combineAll
 
-#### signature: `combineAll(project: function): Observable`
+#### 签名: `combineAll(project: function): Observable`
 
-## When source observable completes use [combineLatest](combinelatest.md) with collected observables.
+## 当源 observable 完成时，对收集的 observables 使用 [combineLatest](combinelatest.md) 。
 
-### Examples
+### 示例
 
-(
-[example tests](https://github.com/btroncone/learn-rxjs/blob/master/operators/specs/combination/combineall-spec.ts)
-)
+( [示例测试](https://github.com/btroncone/learn-rxjs/blob/master/operators/specs/combination/combineall-spec.ts) )
 
-##### Example 1: Mapping to inner interval observable
+##### 示例 1: 映射成内部的 interval observable
 
 ( [jsBin](http://jsbin.com/cokinogime/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/pvj1nbLa/) )
 
 ```js
-//emit every 1s, take 2
+//每秒发出值，并只取前2个
 const source = Rx.Observable.interval(1000).take(2);
-//map each emitted value from source to interval observable that takes 5 values
+// 将 source 发出的每个值映射成取前5个值的 interval observable 
 const example = source.map(val =>
   Rx.Observable.interval(1000)
     .map(i => `Result (${val}): ${i}`)
     .take(5)
 );
 /*
-  2 values from source will map to 2 (inner) interval observables that emit every 1s
-  combineAll uses combineLatest strategy, emitting the last value from each
-  whenever either observable emits a value
+  soure 中的2个值会被映射成2个(内部的) interval observables，
+  这2个内部 observables 每秒使用 combineLatest 策略来 combineAll，
+  每当任意一个内部 observable 发出值，就会发出每个内部 observable 的最新值。
 */
 const combined = example.combineAll();
 /*
-  output:
+  输出:
   ["Result (0): 0", "Result (1): 0"]
   ["Result (0): 1", "Result (1): 0"]
   ["Result (0): 1", "Result (1): 1"]
@@ -45,12 +43,10 @@ const combined = example.combineAll();
 const subscribe = combined.subscribe(val => console.log(val));
 ```
 
-### Additional Resources
 
-* [combineAll](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-combineAll)
-  :newspaper: - Official docs
+### 其他资源
+
+* [combineAll](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-combineAll) :newspaper: - 官方文档
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/combineAll.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/combineAll.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/combineAll.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/combineAll.ts)

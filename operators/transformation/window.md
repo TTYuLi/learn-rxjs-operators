@@ -1,18 +1,18 @@
 # window
 
-#### signature: `window(windowBoundaries: Observable): Observable`
+#### 签名: `window(windowBoundaries: Observable): Observable`
 
-## Observable of values for window of time.
+## 时间窗口值的 observable 。
 
-### Examples
+### 示例
 
-##### Example 1: Open window specified by inner observable
+##### 示例 1: 打开由内部 observable 指定的窗口
 
 ( [jsBin](http://jsbin.com/jituvajeri/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/rmgghg6d/) )
 
 ```js
-//emit immediately then every 1s
+// 立即发出值，然后每秒发出值
 const source = Rx.Observable.timer(0, 1000);
 const example = source.window(Rx.Observable.interval(3000));
 const count = example.scan((acc, curr) => acc + 1, 0);
@@ -31,14 +31,10 @@ const subscribe = count.subscribe(val => console.log(`Window ${val}:`));
 const subscribeTwo = example.mergeAll().subscribe(val => console.log(val));
 ```
 
-### Additional Resources
+### 其他资源
 
-* [window](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-window)
-  :newspaper: - Official docs
-* [Split an RxJS observable with window](https://egghead.io/lessons/rxjs-split-an-rxjs-observable-with-window?course=use-higher-order-observables-in-rxjs-effectively)
-  :video_camera: :dollar: - André Staltz
+* [window](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-window) :newspaper: - 官方文档
+* [使用 window 分割 RxJS observable](https://egghead.io/lessons/rxjs-split-an-rxjs-observable-with-window?course=use-higher-order-observables-in-rxjs-effectively) :video_camera: :dollar: - André Staltz
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/window.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/window.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/window.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/window.ts)

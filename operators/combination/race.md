@@ -1,40 +1,40 @@
 # race
 
-#### signature: `race(): Observable`
+#### 签名: `race(): Observable`
 
-## The observable to emit first is used.
+## 使用首先发出值的 observable 。
 
-### Examples
+### 示例
 
-##### Example 1: race with 4 observables
+##### 示例 1: 使用 4个 observables 进行 race
 
 ( [jsBin](http://jsbin.com/goqiwobeno/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/8jcmb1ec/) )
 
 ```js
-//take the first observable to emit
+// 接收第一个发出值的 observable
 const example = Rx.Observable.race(
-  //emit every 1.5s
+  // 每1.5秒发出值
   Rx.Observable.interval(1500),
-  //emit every 1s
+  // 每1秒发出值
   Rx.Observable.interval(1000).mapTo('1s won!'),
-  //emit every 2s
+  // 每2秒发出值
   Rx.Observable.interval(2000),
-  //emit every 2.5s
+  // 每2.5秒发出值
   Rx.Observable.interval(2500)
 );
-//output: "1s won!"..."1s won!"...etc
+//输出: "1s won!"..."1s won!"...etc
 const subscribe = example.subscribe(val => console.log(val));
 ```
 
-##### Example 2: race with an error
+##### 示例 2: 使用 error 进行 race
 
 ( [jsFiddle](https://jsfiddle.net/gbeL4t55/2/) )
 
 ```js
 console.clear();
 
-//Throws an error and ignore the rest of the observables.
+// 抛出错误并忽略其他的 observables 。
 const first = Rx.Observable.of('first')
   .delay(100)
   .map(() => {
@@ -48,12 +48,9 @@ const race = Rx.Observable.race(first, second, third).subscribe(val =>
 );
 ```
 
-### Additional Resources
+### 其他资源
 
-* [race](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-race)
-  :newspaper: - Official docs
+* [race](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-race) :newspaper: - 官方文档
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/race.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/race.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/race.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/race.ts)

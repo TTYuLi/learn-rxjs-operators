@@ -1,22 +1,22 @@
 # ignoreElements
 
-#### signature: `ignoreElements(): Observable`
+#### 签名: `ignoreElements(): Observable`
 
-## Ignore everything but complete and error.
+## 忽略所有通知，除了 complete 和 error 。
 
-### Examples
+### 示例
 
-##### Example 1: Ignore all elements from source
+##### 示例 1: 忽略源 observable 的所有数据项
 
 ( [jsBin](http://jsbin.com/yiyefelubi/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/59scjqss/) )
 
 ```js
-//emit value every 100ms
+// 每100毫秒发出值
 const source = Rx.Observable.interval(100);
-//ignore everything but complete
+// 忽略所有值，只发出 complete
 const example = source.take(5).ignoreElements();
-//output: "COMPLETE!"
+// 输出: "COMPLETE!"
 const subscribe = example.subscribe(
   val => console.log(`NEXT: ${val}`),
   val => console.log(`ERROR: ${val}`),
@@ -24,15 +24,15 @@ const subscribe = example.subscribe(
 );
 ```
 
-##### Example 2: Only displaying error
+##### 示例 2: 只显示错误
 
 ( [jsBin](http://jsbin.com/gogonawuze/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/srcwdgw6/) )
 
 ```js
-//emit value every 100ms
+// 每100毫秒发出值
 const source = Rx.Observable.interval(100);
-//ignore everything but error
+// 忽略所有值，只发出 error
 const error = source
   .flatMap(val => {
     if (val === 4) {
@@ -41,7 +41,7 @@ const error = source
     return Rx.Observable.of(val);
   })
   .ignoreElements();
-//output: "ERROR: ERROR AT 4"
+// 输出: "ERROR: ERROR AT 4"
 const subscribe = error.subscribe(
   val => console.log(`NEXT: ${val}`),
   val => console.log(`ERROR: ${val}`),
@@ -49,12 +49,10 @@ const subscribe = error.subscribe(
 );
 ```
 
-### Additional Resources
 
-* [ignoreElements](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-ignoreElements)
-  :newspaper: - Official docs
+### 其他资源
+
+* [ignoreElements](http://cn.rx.js.org/class/es6/Observable.js~Observable.html#instance-method-ignoreElements) :newspaper: - 官方文档
 
 ---
-
-> :file_folder: Source Code:
-> [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/ignoreElements.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/ignoreElements.ts)
+> :file_folder: 源码:  [https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/ignoreElements.ts](https://github.com/ReactiveX/rxjs/blob/master/src/internal/operators/ignoreElements.ts)
