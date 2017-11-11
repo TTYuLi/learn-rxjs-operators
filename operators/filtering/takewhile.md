@@ -20,26 +20,24 @@ const example = source.takeWhile(val => val <= 4);
 const subscribe = example.subscribe(val => console.log(val));
 ```
 
-##### Example 2: Difference between takeWhile() and filter()
+##### 示例 2: takeWhile() 和 filter() 的区别
 
 ( [jsBin](http://jsbin.com/yatoqurewi/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/r497jgw3/4/) )
 
 ```js
-// emit 3, 3, 3, 9, 1, 4, 5, 8, 96, 3, 66, 3, 3, 3
+// 发出 3, 3, 3, 9, 1, 4, 5, 8, 96, 3, 66, 3, 3, 3
 const source = Rx.Observable.of(3, 3, 3, 9, 1, 4, 5, 8, 96, 3, 66, 3, 3, 3);
 
-// allow values until value from source equals 3, then complete
-// output: [3, 3, 3]
+// 允许值通过直到源发出的值不等于3，然后完成
+// 输出: [3, 3, 3]
 source
   .takeWhile(it => it === 3)
   .subscribe(val => console.log('takeWhile', val));
 
-// output: [3, 3, 3, 3, 3, 3, 3]
+// 输出: [3, 3, 3, 3, 3, 3, 3]
 source.filter(it => it === 3).subscribe(val => console.log('filter', val));
 ```
-
-
 
 ### 相关食谱
 
