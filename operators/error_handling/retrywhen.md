@@ -43,18 +43,18 @@ const example = source
 const subscribe = example.subscribe(val => console.log(val));
 ```
 
-##### Example 2: Increased duration between retries
+##### 示例 2: 增加重试之间的时间间隔
 
 ( [jsBin](http://jsbin.com/nexuxoyifa/1/edit?js,console) |
 [jsFiddle](https://jsfiddle.net/btroncone/tLx1c3j6/2/) )
 
 ```js
-//emit value every 1s
+// 每1秒发出值
 const source = Rx.Observable.interval(1000);
 const example = source
   .map(val => {
     if (val > 2) {
-      //error will be picked up by retryWhen
+      // 错误将由 retryWhen 接收
       throw val;
     }
     return val;

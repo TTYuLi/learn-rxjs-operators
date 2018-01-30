@@ -12,4 +12,4 @@
 * [timeout](timeout.md)
 * [toPromise](topromise.md)
 
-:star: - *常用*
+:star: - _常用_

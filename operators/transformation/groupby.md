@@ -23,7 +23,7 @@ const source = Rx.Observable.from(people);
 // 根据 age 分组
 const example = source
   .groupBy(person => person.age)
-  // 为每个分组返回一个数组
+  // 将每个分组项作为数组返回
   .mergeMap(group => group.toArray());
 /*
   输出:
